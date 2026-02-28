@@ -3,6 +3,7 @@ import pandas as pd
 import matplotlib.pyplot as plt
 import seaborn as sns
 
+
 def _sauvegarder(fig, save_path: Path | None):
     if save_path is not None:
         save_path = Path(save_path)
