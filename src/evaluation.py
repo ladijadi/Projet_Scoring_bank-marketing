@@ -1,68 +1,73 @@
-from pathlib import Path
+from typing import Dict, Tuple
+import numpy as np
 import pandas as pd
+
+from sklearn.metrics import (
+    confusion_matrix,
+    classification_report,
+    accuracy_score,
+    precision_score,
+    recall_score,
+    f1_score,
+    roc_auc_score,
+    roc_curve
+)
 import matplotlib.pyplot as plt
 import seaborn as sns
 
-def _sauvegarder(fig, save_path: Path | None):
-    if save_path is not None:
-        save_path = Path(save_path)
-        save_path.parent.mkdir(parents=True, exist_ok=True)
-        fig.savefig(save_path, dpi=150, bbox_inches="tight")
+
+def evaluer_classification_binaire(y_true, y_pred, y_proba=None, pos_label="yes") -> Dict[str, float]:
+    """
+    Calcule des métriques adaptées au cas binaire déséquilibré.
+    Si y_proba est fourni, calcule ROC-AUC.
+    """
+    metrics = {
+        "accuracy": accuracy_score(y_true, y_pred),
+        "precision": precision_score(y_true, y_pred, pos_label=pos_label),
+        "recall": recall_score(y_true, y_pred, pos_label=pos_label),
+        "f1": f1_score(y_true, y_pred, pos_label=pos_label)
+    }
+
+    if y_proba is not None:
+        # y_proba = proba de la classe positive
+        metrics["roc_auc"] = roc_auc_score((y_true == pos_label).astype(int), y_proba)
+
+    return {k: float(np.round(v, 4)) for k, v in metrics.items()}
 
 
-def plot_cible_repartition(df: pd.DataFrame, cible: str = "y", save_path: Path | None = None):
+def afficher_matrice_confusion(y_true, y_pred, labels=("no", "yes"), titre="Matrice de confusion"):
     """
-    Barplot simple de la distribution de la cible.
+    Affiche une matrice de confusion lisible.
     """
+    cm = confusion_matrix(y_true, y_pred, labels=list(labels))
     fig, ax = plt.subplots(figsize=(6, 4))
-    ordre = df[cible].value_counts().index.tolist()
-    sns.countplot(data=df, x=cible, order=ordre, ax=ax)
-    ax.set_title("Répartition de la variable cible")
-    ax.set_xlabel(cible)
-    ax.set_ylabel("Effectif")
-
-    _sauvegarder(fig, save_path)
+    sns.heatmap(cm, annot=True, fmt="d", cbar=False, ax=ax,
+                xticklabels=labels, yticklabels=labels)
+    ax.set_xlabel("Prédit")
+    ax.set_ylabel("Réel")
+    ax.set_title(titre)
     plt.show()
 
 
-def plot_distribution_age(df: pd.DataFrame, cible: str = "y", save_path: Path | None = None):
+def afficher_rapport_classification(y_true, y_pred):
     """
-    Distribution de l'âge selon la cible (2 histogrammes superposés).
+    Affiche le classification_report sklearn.
     """
-    fig, ax = plt.subplots(figsize=(7, 4))
-
-    # On force une copie de colonnes nécessaires
-    tmp = df[[cible, "age"]].dropna()
-
-    for modalite in sorted(tmp[cible].unique()):
-        sns.histplot(
-            data=tmp[tmp[cible] == modalite],
-            x="age",
-            bins=30,
-            kde=False,
-            stat="density",
-            label=str(modalite),
-            ax=ax
-        )
-
-    ax.set_title("Distribution de l'âge selon la cible")
-    ax.set_xlabel("Âge")
-    ax.set_ylabel("Densité")
-    ax.legend(title=cible)
-
-    _sauvegarder(fig, save_path)
-    plt.show()
+    print(classification_report(y_true, y_pred))
 
 
-def plot_heatmap_correlation(df: pd.DataFrame, variables_numeriques: list[str], save_path: Path | None = None):
+def tracer_roc(y_true, y_proba, pos_label="yes", titre="Courbe ROC"):
     """
-    Heatmap de corrélation (Pearson) sur les variables numériques.
+    Trace la courbe ROC à partir des probabilités de la classe positive.
     """
-    corr = df[variables_numeriques].corr(method="pearson")
+    y_bin = (pd.Series(y_true) == pos_label).astype(int)
+    fpr, tpr, _ = roc_curve(y_bin, y_proba)
 
-    fig, ax = plt.subplots(figsize=(9, 7))
-    sns.heatmap(corr, cmap="viridis", ax=ax)
-    ax.set_title("Corrélation (Pearson) — variables numériques")
-
-    _sauvegarder(fig, save_path)
+    fig, ax = plt.subplots(figsize=(6, 5))
+    ax.plot(fpr, tpr, label="ROC")
+    ax.plot([0, 1], [0, 1], linestyle="--", label="Aléatoire")
+    ax.set_xlabel("False Positive Rate")
+    ax.set_ylabel("True Positive Rate")
+    ax.set_title(titre)
+    ax.legend()
     plt.show()
