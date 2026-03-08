@@ -4,8 +4,8 @@ import pandas as pd
 
 def tableau_comparatif(resultats: list[dict]) -> pd.DataFrame:
     """
-    Construit un tableau comparatif à partir d'une liste de dictionnaires.
-    Chaque dictionnaire doit contenir : nom_modele + métriques.
+    Construit un tableau comparatif à partir d'une liste de dictionnaires de résultats de modèles
+    Chaque dictionnaire doit contenir : nom_modele + métriques
     """
     df = pd.DataFrame(resultats).copy()
 

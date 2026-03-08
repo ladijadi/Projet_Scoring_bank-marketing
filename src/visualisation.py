@@ -13,7 +13,7 @@ def _sauvegarder(fig, save_path: Path | None):
 
 def plot_cible_repartition(df: pd.DataFrame, cible: str = "y", save_path: Path | None = None):
     """
-    Barplot simple de la distribution de la cible.
+    Barplot simple de la distribution de la cible
     """
     fig, ax = plt.subplots(figsize=(6, 4))
     ordre = df[cible].value_counts().index.tolist()
@@ -28,7 +28,7 @@ def plot_cible_repartition(df: pd.DataFrame, cible: str = "y", save_path: Path |
 
 def plot_distribution_age(df: pd.DataFrame, cible: str = "y", save_path: Path | None = None):
     """
-    Distribution de l'âge selon la cible (2 histogrammes superposés).
+    Distribution de l'âge selon la cible (2 histogrammes superposés)
     """
     fig, ax = plt.subplots(figsize=(7, 4))
 
@@ -57,7 +57,7 @@ def plot_distribution_age(df: pd.DataFrame, cible: str = "y", save_path: Path | 
 
 def plot_heatmap_correlation(df: pd.DataFrame, variables_numeriques: list[str], save_path: Path | None = None):
     """
-    Heatmap de corrélation (Pearson) sur les variables numériques.
+    Heatmap de corrélation (Pearson) sur les variables numériques
     """
     corr = df[variables_numeriques].corr(method="pearson")
 

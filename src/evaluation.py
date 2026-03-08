@@ -18,8 +18,8 @@ import seaborn as sns
 
 def evaluer_classification_binaire(y_true, y_pred, y_proba=None, pos_label="yes") -> Dict[str, float]:
     """
-    Calcule des métriques adaptées au cas binaire déséquilibré.
-    Si y_proba est fourni, calcule ROC-AUC.
+    Calcule des métriques adaptées au cas binaire déséquilibré
+    Si y_proba est fourni, calcule ROC-AUC
     """
     metrics = {
         "accuracy": accuracy_score(y_true, y_pred),
@@ -51,14 +51,14 @@ def afficher_matrice_confusion(y_true, y_pred, labels=("no", "yes"), titre="Matr
 
 def afficher_rapport_classification(y_true, y_pred):
     """
-    Affiche le classification_report sklearn.
+    Affiche le classification_report sklearn
     """
     print(classification_report(y_true, y_pred))
 
 
 def tracer_roc(y_true, y_proba, pos_label="yes", titre="Courbe ROC"):
     """
-    Trace la courbe ROC à partir des probabilités de la classe positive.
+    Trace la courbe ROC à partir des probabilités de la classe positive
     """
     y_bin = (pd.Series(y_true) == pos_label).astype(int)
     fpr, tpr, _ = roc_curve(y_bin, y_proba)

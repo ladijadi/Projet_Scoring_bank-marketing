@@ -17,7 +17,7 @@ def nettoyer_colonnes(df: pd.DataFrame) -> pd.DataFrame:
 
 def retirer_duration(df: pd.DataFrame, nom_colonne: str = "duration") -> pd.DataFrame:
     """
-    Retire la variable duration si elle existe (data leakage).
+    Retire la variable duration si elle existe (data leakage)
     """
     df = df.copy()
     if nom_colonne in df.columns:

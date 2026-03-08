@@ -12,7 +12,7 @@ from sklearn.linear_model import LogisticRegression
 @dataclass
 class ColonnesModele:
     """
-    Regroupe les noms de colonnes utilisées dans le modèle.
+    Regroupe les noms de colonnes utilisées dans le modèle
     """
     cible: str
     numeriques: List[str]
@@ -53,10 +53,12 @@ def construire_modele_logistique(
     solver: str = "liblinear"
 ) -> Pipeline:
     """
-    Pipeline complet : prétraitement + régression logistique.
+    Pipeline complet : prétraitement + régression logistique
 
     Notes :
-    - solver='liblinear' supporte l1 et l2.
+    - solver='liblinear' supporte l1 et l2, et est adapté pour les petits datasets
+     (pour les grands datasets, 'saga' est plus rapide et supporte aussi l1 et l2)
+     mais 'saga' peut être plus instable, donc je choisis 'liblinear' pour ce projet
     - class_weight peut être 'balanced' pour gérer le déséquilibre.
     """
     preprocessor = construire_preprocesseur(colonnes)
