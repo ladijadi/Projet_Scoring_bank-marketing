@@ -6,7 +6,7 @@ def detecter_doublons(df: pd.DataFrame) -> int:
     """
     return int(df.duplicated().sum())
 
-def resume_qualite(df: pd.DataFrame, cible: str = "y") -> pd.DataFrame:
+def resume_qualite(df: pd.DataFrame, cible: str = "y") -> pd.DataFrame: 
     """
     Affiche un résumé simple de la qualité des données :
     - dimensions
@@ -29,7 +29,7 @@ def resume_qualite(df: pd.DataFrame, cible: str = "y") -> pd.DataFrame:
         print("Valeurs manquantes : aucune (NaN) détectée.")
     else:
         print("Valeurs manquantes :")
-        print(missing_table.head())  # fonctionne dans notebook
+        print(missing_table.head()) 
 
     # Modalité "unknown"
     cat_cols = df.select_dtypes(include=["object"]).columns.tolist()

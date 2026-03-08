@@ -15,7 +15,7 @@ Decision Support Systems.
 
 ---
 
-## 🎯 Objectif
+## Objectif
 
 Construire un modèle de **classification supervisée binaire** permettant d’estimer :
 
@@ -27,7 +27,7 @@ Le dataset présente un **déséquilibre de classes (~11 % de souscriptions)**.
 
 ---
 
-## 📊 Données
+## Données
 
 - 41 176 observations (après suppression des doublons)
 - 20 variables explicatives
@@ -39,7 +39,7 @@ La variable `duration` a été exclue afin d’éviter toute fuite d’informati
 
 ---
 
-## 🔎 Analyse Exploratoire
+## Analyse Exploratoire
 
 - Analyse descriptive des variables numériques
 - Étude de la distribution de la cible
@@ -50,7 +50,7 @@ Constat : l’accuracy seule n’est pas adaptée au déséquilibre du dataset.
 
 ---
 
-## ⚙️ Méthodologie
+## Méthodologie
 
 ### Pipeline de traitement
 
@@ -62,7 +62,7 @@ Constat : l’accuracy seule n’est pas adaptée au déséquilibre du dataset.
 
 ---
 
-## 🤖 Modèles étudiés
+## Modèles étudiés
 
 ### 1️⃣ Régression Logistique
 - Régularisation L2
@@ -75,7 +75,7 @@ Constat : l’accuracy seule n’est pas adaptée au déséquilibre du dataset.
 
 ---
 
-## 📈 Résultats
+## Résultats
 
 | Modèle | Accuracy | Precision | Recall | F1 | ROC-AUC |
 |--------|----------|-----------|--------|----|---------|
@@ -86,7 +86,7 @@ Constat : l’accuracy seule n’est pas adaptée au déséquilibre du dataset.
 
 ---
 
-## 🧠 Analyse des résultats
+## Analyse des résultats
 
 - Le meilleur ROC-AUC est obtenu par la Random Forest optimisée.
 - Le meilleur rappel de la classe positive est obtenu par la logistique pondérée.
@@ -95,7 +95,7 @@ Constat : l’accuracy seule n’est pas adaptée au déséquilibre du dataset.
 
 ---
 
-## 📌 Compétences mobilisées
+## Compétences mobilisées
 
 - Python (Pandas, NumPy, Scikit-learn)
 - Pipeline sklearn
@@ -106,7 +106,7 @@ Constat : l’accuracy seule n’est pas adaptée au déséquilibre du dataset.
 
 ---
 
-## 📚 Référence scientifique
+## Référence scientifique
 
 Moro, S., Cortez, P., & Rita, P. (2014).  
 *A Data-Driven Approach to Predict the Success of Bank Telemarketing.*

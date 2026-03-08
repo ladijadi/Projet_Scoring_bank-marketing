@@ -6,11 +6,11 @@ def nettoyer_colonnes(df: pd.DataFrame) -> pd.DataFrame:
     - remplace '.' par '_'
     - supprime espaces inutiles
     """
-    df = df.copy()
-    df.columns = (
-        df.columns
-        .str.strip()
-        .str.replace(".", "_", regex=False)
+    df = df.copy()       # Créer une copie du DataFrame
+    df.columns = ( 
+        df.columns        # Appliquer les transformations sur les noms de colonnes
+        .str.strip()      # Supprimer les espaces en début/fin de nom de colonne
+        .str.replace(".", "_", regex=False) # Remplacer les points par des underscores
     )
     return df
 
