@@ -84,6 +84,10 @@ Model shows good discrimination ability (AUC ~0.81), but performance must be int
 
 Key drivers of subscription are consistent across models, highlighting the importance of customer profile, campaign history and macroeconomic context.
 
+Logistic regression highlights interpretable drivers of subscription probability.
+
+Random Forest confirms key variables with a different, non-linear perspective.
+
 ---
 
 ## 🛠️ Skills Demonstrated
@@ -99,3 +103,7 @@ Key drivers of subscription are consistent across models, highlighting the impor
 
 Moro, S., Cortez, P., & Rita, P. (2014).  
 *A Data-Driven Approach to Predict the Success of Bank Telemarketing.*
+
+## Droits d'auteur
+
+© 2026 Khady Diagne. Tous droits réservés.
