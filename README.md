@@ -1,112 +1,101 @@
-# Bank Marketing - Classification Supervisée
+# 📊 Bank Marketing – Customer Subscription Prediction
 
-## Contexte
+## 🎯 Objective
 
-Ce projet s’appuie sur le dataset **Bank Marketing** issu du UCI Machine Learning Repository.
+Build a supervised classification model to predict whether a client subscribes to a term deposit following a marketing campaign.
 
-Il contient des données relatives à des campagnes de marketing direct menées par une institution bancaire portugaise entre 2008 et 2010.
-
-L’objectif est de prédire si un client souscrit à un dépôt à terme à l’issue d’un contact téléphonique.
-
-Référence :
-Moro, S., Cortez, P., & Rita, P. (2014).  
-*A Data-Driven Approach to Predict the Success of Bank Telemarketing*.  
-Decision Support Systems.
+The dataset presents a strong **class imbalance (~11% positive class)**, making standard accuracy insufficient.
 
 ---
 
-## Objectif
+## 📁 Dataset
 
-Construire un modèle de **classification supervisée binaire** permettant d’estimer :
+- 41,176 observations  
+- 20 features  
+- No missing values  
+- "unknown" values kept as meaningful categories  
 
-P(Y = 1 | X = x)
-
-où Y représente la souscription à un dépôt bancaire.
-
-Le dataset présente un **déséquilibre de classes (~11 % de souscriptions)**.
-
----
-
-## Données
-
-- 41 176 observations (après suppression des doublons)
-- 20 variables explicatives
-- 1 variable cible
-- Aucune valeur manquante (NaN)
-- Présence de modalités `"unknown"` conservées comme catégories
-
-La variable `duration` a été exclue afin d’éviter toute fuite d’information (data leakage).
+⚠️ The variable `duration` was removed to avoid data leakage.
 
 ---
 
-## Analyse Exploratoire
+## ⚙️ Methodology
 
-- Analyse descriptive des variables numériques
-- Étude de la distribution de la cible
-- Analyse des corrélations (Pearson)
-- Identification de multicolinéarité potentielle entre variables macroéconomiques
+### Data Pipeline
 
-Constat : l’accuracy seule n’est pas adaptée au déséquilibre du dataset.
-
----
-
-## Méthodologie
-
-### Pipeline de traitement
-
-- Split stratifié (80 % / 20 %)
+- Stratified train/test split (80/20)
 - Imputation (SimpleImputer)
-- Standardisation (StandardScaler)
-- Encodage catégoriel (OneHotEncoder)
-- Pipeline scikit-learn reproductible
+- Scaling (StandardScaler)
+- Categorical encoding (OneHotEncoder)
+- Full sklearn pipeline for reproducibility
 
 ---
 
-## Modèles étudiés
+## 🤖 Models
 
-### 1️⃣ Régression Logistique
-- Régularisation L2
-- Version standard
-- Version pondérée (`class_weight="balanced"`)
+### Logistic Regression
+- L2 regularization  
+- Standard version  
+- Weighted version (`class_weight="balanced"`)
 
-### 2️⃣ Random Forest
-- Modèle de base
-- Optimisation légère via GridSearchCV
+### Random Forest
+- Baseline model  
+- Light tuning (GridSearchCV)
 
 ---
 
-## Résultats
+## 📊 Results
 
-| Modèle | Accuracy | Precision | Recall | F1 | ROC-AUC |
+| Model | Accuracy | Precision | Recall | F1 | ROC-AUC |
 |--------|----------|-----------|--------|----|---------|
-| Logistique (base) | 0.898 | 0.651 | 0.209 | 0.316 | 0.800 |
-| Logistique (pondérée) | 0.830 | 0.359 | 0.646 | 0.462 | 0.800 |
-| Random Forest (base) | 0.894 | 0.553 | 0.287 | 0.378 | 0.778 |
+| Logistic (baseline) | 0.898 | 0.651 | 0.209 | 0.316 | 0.800 |
+| Logistic (weighted) | 0.830 | 0.359 | 0.646 | 0.462 | 0.800 |
+| Random Forest (baseline) | 0.894 | 0.553 | 0.287 | 0.378 | 0.778 |
 | Random Forest (tuned) | 0.901 | 0.645 | 0.261 | 0.372 | 0.814 |
 
 ---
 
-## Analyse des résultats
+## 🧠 Key Insights
 
-- Le meilleur ROC-AUC est obtenu par la Random Forest optimisée.
-- Le meilleur rappel de la classe positive est obtenu par la logistique pondérée.
-- La logistique offre une meilleure interprétabilité.
-- Le choix final dépend de l’objectif opérationnel (détection vs précision globale).
+- Class imbalance significantly impacts model performance  
+- Logistic regression (weighted) improves **recall** → better detection of target clients  
+- Random Forest achieves higher **AUC** → better global discrimination  
 
----
-
-## Compétences mobilisées
-
-- Python (Pandas, NumPy, Scikit-learn)
-- Pipeline sklearn
-- Validation croisée stratifiée
-- Gestion du déséquilibre de classes
-- Évaluation multi-métriques (ROC-AUC, F1, Recall)
-- Analyse de corrélation et multicolinéarité
+➡️ **No single best model — choice depends on business objective (detection vs precision)**
 
 ---
 
-## Référence scientifique
+## 💼 Business Interpretation
+
+This project highlights a common trade-off in marketing analytics:
+
+- High recall → identify more potential subscribers  
+- High precision → reduce unnecessary campaign costs  
+
+➡️ Model selection must align with campaign strategy and budget constraints.
+
+## 📊 Visual Highlights
+
+<img width="1872" height="1003" alt="Screenshot 2026-04-13 102230" src="https://github.com/user-attachments/assets/44720b77-2896-48f7-8622-f251028ef68b" />
+
+Model shows good discrimination ability (AUC ~0.81), but performance must be interpreted with class imbalance in mind.
+
+<img width="1901" height="998" alt="Screenshot 2026-04-13 102339" src="https://github.com/user-attachments/assets/36a788d4-e6db-49d2-9e05-cb904c6c0502" />
+
+Key drivers of subscription are consistent across models, highlighting the importance of customer profile, campaign history and macroeconomic context.
+
+---
+
+## 🛠️ Skills Demonstrated
+
+- Data preprocessing & pipelines (scikit-learn)
+- Handling imbalanced datasets
+- Model comparison & evaluation
+- Business-oriented interpretation of results
+
+---
+
+## 📚 Reference
 
 Moro, S., Cortez, P., & Rita, P. (2014).  
 *A Data-Driven Approach to Predict the Success of Bank Telemarketing.*
