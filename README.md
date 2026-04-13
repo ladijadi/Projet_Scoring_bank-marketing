@@ -107,4 +107,5 @@ Moro, S., Cortez, P., & Rita, P. (2014).
 ## Droits d'auteur
 
 © 2026 Khady Diagne. Tous droits réservés.
+
 This project may not be reproduced or used without permission.
